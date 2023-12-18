@@ -1,7 +1,7 @@
 ---
 title: "Clarification to processing Key Usage values during CRL validation"
 abbrev: "CRL validation clarification"
-category: info
+category: std
 
 docname: draft-lamps-bonnell-keyusage-crl-validation-clarification-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
@@ -22,12 +22,25 @@ venue:
 #  arch: https://example.com/WG
   github: "CBonnell/lamps-keyusage-crl-validation-clarification"
   latest: "https://CBonnell.github.io/lamps-keyusage-crl-validation-clarification/draft-lamps-bonnell-keyusage-crl-validation-clarification.html"
+updates: 5280
 
 author:
  -
     fullname: "Corey Bonnell"
-    organization: Your Organization Here
+    organization: DigiCert, Inc.
     email: "corey.bonnell@digicert.com"
+ -
+    fullname:
+      :: 伊藤 忠彦
+      ascii: Tadahiko Ito
+    organization: SECOM CO., LTD.
+    email: tadahiko.ito.public@gmail.com
+  -
+    fullname:
+      :: 大久保 智史
+      ascii: Tomofumi Okubo
+    organization: DigiCert, Inc.
+    email: tomofumi.okubo+ietf@gmail.com
 
 normative:
 
@@ -36,25 +49,148 @@ informative:
 
 --- abstract
 
-TODO Abstract
+RFC 5280 defines the profile of X.509 certificates and certificate
+revocation lists (CRLs) for use in the Internet. This profile requires
+that certificates which certify keys for signing CRLs contain the key
+usage extension with the cRLSign bit asserted. Additionally, RFC 5280
+defines steps for the validation of CRLs. While there is a requirement
+for CRL validators to verify that the cRLSign bit is asserted in the
+key usage extension of the CRL issuer's certificate, there is no
+requirement for validators to verify the presence of the key usage
+extension itself. The lack of this requirement may manifest in an
+issue in some Public Key Infrastructures where a CRL issuer who has been
+certified by a Certification Authority to issue CRLs on its behalf can
+sign CRLs using a key that has not been certified for signing CRLs.
 
+This document specifies an enhancement to the CRL validation process
+to explicitly require the presence of the key usage extension to resolve
+this issue.
 
 --- middle
 
 # Introduction
 
-TODO Introduction
+{{!RFC5280}} defines the profile of X.509 certificates and certificate
+revocation lists (CRLs) for use in the Internet. This profile requires
+that certificates which certify keys for signing CRLs contain the key
+usage extension with the cRLSign bit asserted. Additionally,
+{{!RFC5280}} defines steps for the validation of CRLs. While there is a
+requirement for CRL validators to verify that the cRLSign bit is
+asserted in the key usage extension of the CRL issuer's certificate,
+there is no requirement for validators to verify the presence of the key
+usage extension itself. The lack of such a requirement may manifest in
+an issue in some Public Key Infrastructures where a CRL issuer who has
+been certified by a Certification Authority to issue CRLs on its behalf
+can sign CRLs using a key that has not been certified for signing CRLs.
 
+{{the-issue}} describes the issue in detail.
+
+{{crl-validation-algo-amendment}} describes the amended CRL validation
+algorithm that remediates the issue.
 
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
 
+# The risk of signing CRLs with non-certified keys {#the-issue}
+
+In some Public Key Infrastructures, entities are delegated by
+Certification Authorities to issue CRLs. CRLs whose scope encompasses
+certificates that have not been issued by the CRL issuer are known as
+"indirect CRLs".
+
+Certification Authorities delegate the issuance of CRLs
+to other entities by issuing the entity a certificate that asserts the
+cRLSign bit in the key usage extension. The Certification Authority will
+then issue certificates that fall within the scope of the indirect CRL
+by including the crlDistributionPoints extension and specifying the
+distinguished name ("DN") of the CRL issuer in the `cRLIssuer` field
+of the corresponding distribution point.
+
+The CRL issuer issues CRLs that assert the `indirectCRL` boolean within
+the issuingDistributionPoint extension.
+
+Applications which consume CRLs follow the validation algorithm as
+specified in Section 6.3 of {{!RFC5280}}. In particular, Section 6.3.3
+contains the following step for CRL validation:
+
+(f) Obtain and validate the certification path for the issuer of
+    the complete CRL.  The trust anchor for the certification
+    path MUST be the same as the trust anchor used to validate
+    the target certificate.  If a key usage extension is present
+    in the CRL issuer's certificate, verify that the cRLSign bit
+    is set.
+
+Notably, there is no requirement to verify the presence of the key usage
+extension itself. The lack of such a check can manifest in a security
+issue. A concrete example is described below.
+
+1. The Certification Authority issues an end-entity CRL issuer
+   certificate to Subject `X` that certifies key `A` for signing CRLs by
+   explicitly including the key usage extension and asserting the
+   cRLSign bit in accordance with Section 4.2.1.3 of {{!RFC5280}}.
+2. The Certification Authority issues one or more certificates that
+   include the crlDistributionPoints extension with the DN for Subject
+   `X` included in the `cRLIssuer` field. This indicates that the
+   CRL-based revocation information for these certificates will be
+   provided by Subject `X`.
+3. The Certification Authority issues an end-entity certificate to
+   Subject `X` that certifies key `B`. This certificate contains no key
+   usage extension, as the certified key is not intended to be used for
+   signing CRLs and could be a “mundane” certificate of any type (e.g.,
+   S/MIME, document signing certificate where the corresponding private
+   key is stored on the filesystem of the secretary’s laptop, etc.).
+4. Subject `X` signs a CRL using key `B` and publishes the CRL at the
+   `distributionPoint` specified in the crlDistributionPoints extension
+   of the certificates issued in step 2.
+5. Relying parties download the CRL published in step 4. The CRL
+   validates successfully according to Section 6.3.3 of {{!RFC5280}},
+   as the CRL issuer DN matches, and the check for the presence of the
+   cRLSign bit in the key usage extension is skipped because the key
+   usage extension is absent.
+
+# Checking the presence of the key usage extension {{#crl-validation-algo-amendment}}
+
+To remediate the security issue described in {{the-issue}}, this
+document specifies the following amendment to step (f) of the CRL
+algorithm as found in Section 6.3.3 of {{!RFC5280}}.
+
+*OLD:*
+
+(f) Obtain and validate the certification path for the issuer of
+    the complete CRL.  The trust anchor for the certification
+    path MUST be the same as the trust anchor used to validate
+    the target certificate.  If a key usage extension is present
+    in the CRL issuer's certificate, verify that the cRLSign bit
+    is set.
+
+*NEW:*
+
+(f) Obtain and validate the certification path for the issuer of
+    the complete CRL.  The trust anchor for the certification
+    path MUST be the same as the trust anchor used to validate
+    the target certificate.  Verify that the key usage extension is
+    present in the CRL issuer's certificate and verify that the cRLSign
+    bit is set.
 
 # Security Considerations
 
-TODO Security
+If a Certification Authority has issued certificates to be used for
+CRL verification but do not include the key usage extension in
+accordance with Section 4.2.1.3 of {{!RFC5280}}, then relying party
+applications which have implemented the modified verification algorithm
+as specified in this document will be unable to verify CRLs issued by
+the CRL issuer in question.
 
+It is strongly RECOMMENDED that Certification Authorities include the
+key usage extension in certificates to be used for CRL verification to
+ensure that there are no interoperability issues where updated
+applications are unable to verify CRLs.
+
+If it is not possible to update the profile of CRL issuer certificates,
+then the policy management authority of affected Public Key
+Infrastructures update the Subject naming requirements to ensure that
+certificates to be used for different purposes contain unique DNs.
 
 # IANA Considerations
 
