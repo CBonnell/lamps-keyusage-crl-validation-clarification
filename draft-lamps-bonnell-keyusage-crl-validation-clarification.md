@@ -149,7 +149,7 @@ issue. A concrete example is described below.
    cRLSign bit in the key usage extension is skipped because the key
    usage extension is absent.
 
-# Checking the presence of the key usage extension {{#crl-validation-algo-amendment}}
+# Checking the presence of the key usage extension {#crl-validation-algo-amendment}
 
 To remediate the security issue described in {{the-issue}}, this
 document specifies the following amendment to step (f) of the CRL
