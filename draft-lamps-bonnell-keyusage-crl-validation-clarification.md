@@ -35,7 +35,7 @@ author:
       ascii: Tadahiko Ito
     organization: SECOM CO., LTD.
     email: tadahiko.ito.public@gmail.com
-  -
+ -
     fullname:
       :: 大久保 智史
       ascii: Tomofumi Okubo
