@@ -1043,11 +1043,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">CRL validation clarification</td>
-<td class="right">December 2023</td>
+<td class="right">January 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Bonnell, et al.</td>
-<td class="center">Expires 21 June 2024</td>
+<td class="center">Expires 7 July 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1063,12 +1063,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc5280" class="eref">5280</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-12-19" class="published">19 December 2023</time>
+<time datetime="2024-01-04" class="published">4 January 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-06-21">21 June 2024</time></dd>
+<dd class="expires"><time datetime="2024-07-07">7 July 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1137,7 +1137,7 @@ this issue.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 21 June 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 7 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1146,7 +1146,7 @@ this issue.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2023 IETF Trust and the persons identified as the
+            Copyright (c) 2024 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1240,59 +1240,77 @@ Certification Authorities to issue CRLs. CRLs whose scope encompasses
 certificates that have not been issued by the CRL issuer are known as
 "indirect CRLs".<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">Certification Authorities delegate the issuance of CRLs
-to other entities by issuing the entity a certificate that asserts the
-<code>cRLSign</code> bit in the <code>keyUsage</code> extension. The Certification Authority
-will then issue certificates that fall within the scope of the indirect
-CRL by including the <code>crlDistributionPoints</code> extension and specifying
-the distinguished name ("DN") of the CRL issuer in the <code>cRLIssuer</code> field
-of the corresponding distribution point.<a href="#section-3-2" class="pilcrow">¶</a></p>
+to other entities by issuing to the entity a certificate that asserts
+the <code>cRLSign</code> bit in the <code>keyUsage</code> extension. The Certification
+Authority will then issue certificates that fall within the scope of the
+indirect CRL by including the <code>crlDistributionPoints</code> extension and
+specifying the distinguished name ("DN") of the CRL issuer in the
+<code>cRLIssuer</code> field of the corresponding distribution point.<a href="#section-3-2" class="pilcrow">¶</a></p>
 <p id="section-3-3">The CRL issuer issues CRLs that assert the <code>indirectCRL</code> boolean within
 the <code>issuingDistributionPoint</code> extension.<a href="#section-3-3" class="pilcrow">¶</a></p>
 <p id="section-3-4">Applications which consume CRLs follow the validation algorithm as
 specified in Section 6.3 of <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>. In particular, Section 6.3.3
 contains the following step for CRL validation:<a href="#section-3-4" class="pilcrow">¶</a></p>
-<p id="section-3-5">(f) Obtain and validate the certification path for the issuer of
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-3-5.1">
+          <p id="section-3-5.1.1">(f) Obtain and validate the certification path for the issuer of
     the complete CRL.  The trust anchor for the certification
     path <span class="bcp14">MUST</span> be the same as the trust anchor used to validate
     the target certificate.  If a <code>keyUsage</code> extension is present
     in the CRL issuer's certificate, verify that the <code>cRLSign</code> bit
-    is set.<a href="#section-3-5" class="pilcrow">¶</a></p>
+    is set.<a href="#section-3-5.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
 <p id="section-3-6">Notably, there is no requirement to verify the presence of the
-<code>keyUsage</code> extension itself. The lack of such a check can manifest in a
-security issue. A concrete example is described below.<a href="#section-3-6" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3-7">
-<li id="section-3-7.1">
-          <p id="section-3-7.1.1">The Certification Authority issues an end-entity CRL issuer
+<code>keyUsage</code> extension itself.<a href="#section-3-6" class="pilcrow">¶</a></p>
+<p id="section-3-7">Additionally, the certificate profile in <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> does not require
+the inclusion of the <code>keyUsage</code> extension in a certificate if the
+certified public key is not used for verifying the signatures of other
+certificates or CRLs. Section 4.2.1.3 of <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> says:<a href="#section-3-7" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-3-8.1">
+          <p id="section-3-8.1.1">Conforming CAs <span class="bcp14">MUST</span> include this extension in certificates that
+   contain public keys that are used to validate digital signatures on
+   other public key certificates or CRLs.<a href="#section-3-8.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-3-9">The allowance for the issuance of certificates without the <code>keyUsage</code>
+extension and the lack of a check for the inclusion of the <code>keyUsage</code>
+extension during CRL verification can manifest in a security issue. A
+concrete example is described below.<a href="#section-3-9" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3-10">
+<li id="section-3-10.1">
+          <p id="section-3-10.1.1">The Certification Authority issues an end-entity CRL issuer
 certificate to subject <code>X</code> that certifies key <code>A</code> for signing CRLs by
 explicitly including the <code>keyUsage</code> extension and asserting the
-<code>cRLSign</code> bit in accordance with Section 4.2.1.3 of <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.<a href="#section-3-7.1.1" class="pilcrow">¶</a></p>
+<code>cRLSign</code> bit in accordance with Section 4.2.1.3 of <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.<a href="#section-3-10.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-3-7.2">
-          <p id="section-3-7.2.1">The Certification Authority issues one or more certificates that
+        <li id="section-3-10.2">
+          <p id="section-3-10.2.1">The Certification Authority issues one or more certificates that
 include the crlDistributionPoints extension with the DN for subject
 <code>X</code> included in the <code>cRLIssuer</code> field. This indicates that the
 CRL-based revocation information for these certificates will be
-provided by subject <code>X</code>.<a href="#section-3-7.2.1" class="pilcrow">¶</a></p>
+provided by subject <code>X</code>.<a href="#section-3-10.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-3-7.3">
-          <p id="section-3-7.3.1">The Certification Authority issues an end-entity certificate to
+        <li id="section-3-10.3">
+          <p id="section-3-10.3.1">The Certification Authority issues an end-entity certificate to
 subject <code>X</code> that certifies key <code>B</code>. This certificate contains no key
 usage extension, as the certified key is not intended to be used for
 signing CRLs and could be a “mundane” certificate of any type (e.g.,
 S/MIME, document signing certificate where the corresponding private
-key is stored on the filesystem of the secretary’s laptop, etc.).<a href="#section-3-7.3.1" class="pilcrow">¶</a></p>
+key is stored on the filesystem of the secretary’s laptop, etc.).<a href="#section-3-10.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-3-7.4">
-          <p id="section-3-7.4.1">subject <code>X</code> signs a CRL using key <code>B</code> and publishes the CRL at the
+        <li id="section-3-10.4">
+          <p id="section-3-10.4.1">subject <code>X</code> signs a CRL using key <code>B</code> and publishes the CRL at the
 <code>distributionPoint</code> specified in the <code>crlDistributionPoints</code>
-extension of the certificates issued in step 2.<a href="#section-3-7.4.1" class="pilcrow">¶</a></p>
+extension of the certificates issued in step 2.<a href="#section-3-10.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-3-7.5">
-          <p id="section-3-7.5.1">Relying parties download the CRL published in step 4. The CRL
+        <li id="section-3-10.5">
+          <p id="section-3-10.5.1">Relying parties download the CRL published in step 4. The CRL
 validates successfully according to Section 6.3.3 of <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>,
 as the CRL issuer DN matches, and the check for the presence of the
 <code>cRLSign</code> bit in the <code>keyUsage</code> extension is skipped because the
-<code>keyUsage</code> extension is absent.<a href="#section-3-7.5.1" class="pilcrow">¶</a></p>
+<code>keyUsage</code> extension is absent.<a href="#section-3-10.5.1" class="pilcrow">¶</a></p>
 </li>
       </ol>
 </section>
@@ -1306,19 +1324,27 @@ as the CRL issuer DN matches, and the check for the presence of the
 document specifies the following amendment to step (f) of the CRL
 algorithm as found in Section 6.3.3 of <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4-2"><em>OLD:</em><a href="#section-4-2" class="pilcrow">¶</a></p>
-<p id="section-4-3">(f) Obtain and validate the certification path for the issuer of
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-4-3.1">
+          <p id="section-4-3.1.1">(f) Obtain and validate the certification path for the issuer of
     the complete CRL.  The trust anchor for the certification
     path <span class="bcp14">MUST</span> be the same as the trust anchor used to validate
     the target certificate.  If a <code>keyUsage</code> extension is present
     in the CRL issuer's certificate, verify that the <code>cRLSign</code> bit
-    is set.<a href="#section-4-3" class="pilcrow">¶</a></p>
+    is set.<a href="#section-4-3.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
 <p id="section-4-4"><em>NEW:</em><a href="#section-4-4" class="pilcrow">¶</a></p>
-<p id="section-4-5">(f) Obtain and validate the certification path for the issuer of
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-4-5.1">
+          <p id="section-4-5.1.1">(f) Obtain and validate the certification path for the issuer of
     the complete CRL.  The trust anchor for the certification
     path <span class="bcp14">MUST</span> be the same as the trust anchor used to validate
     the target certificate.  Verify that the <code>keyUsage</code> extension is
     present in the CRL issuer's certificate and verify that the <code>cRLSign</code>
-    bit is set.<a href="#section-4-5" class="pilcrow">¶</a></p>
+    bit is set.<a href="#section-4-5.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
 </section>
 </div>
 <div id="security-considerations">
