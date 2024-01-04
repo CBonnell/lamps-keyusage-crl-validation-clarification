@@ -100,12 +100,12 @@ certificates that have not been issued by the CRL issuer are known as
 "indirect CRLs".
 
 Certification Authorities delegate the issuance of CRLs
-to other entities by issuing the entity a certificate that asserts the
-`cRLSign` bit in the `keyUsage` extension. The Certification Authority
-will then issue certificates that fall within the scope of the indirect
-CRL by including the `crlDistributionPoints` extension and specifying
-the distinguished name ("DN") of the CRL issuer in the `cRLIssuer` field
-of the corresponding distribution point.
+to other entities by issuing to the entity a certificate that asserts
+the `cRLSign` bit in the `keyUsage` extension. The Certification
+Authority will then issue certificates that fall within the scope of the
+indirect CRL by including the `crlDistributionPoints` extension and
+specifying the distinguished name ("DN") of the CRL issuer in the
+`cRLIssuer` field of the corresponding distribution point.
 
 The CRL issuer issues CRLs that assert the `indirectCRL` boolean within
 the `issuingDistributionPoint` extension.
@@ -114,7 +114,7 @@ Applications which consume CRLs follow the validation algorithm as
 specified in Section 6.3 of {{!RFC5280}}. In particular, Section 6.3.3
 contains the following step for CRL validation:
 
-(f) Obtain and validate the certification path for the issuer of
+> (f) Obtain and validate the certification path for the issuer of
     the complete CRL.  The trust anchor for the certification
     path MUST be the same as the trust anchor used to validate
     the target certificate.  If a `keyUsage` extension is present
@@ -122,8 +122,21 @@ contains the following step for CRL validation:
     is set.
 
 Notably, there is no requirement to verify the presence of the
-`keyUsage` extension itself. The lack of such a check can manifest in a
-security issue. A concrete example is described below.
+`keyUsage` extension itself.
+
+Additionally, the certificate profile in {{!RFC5280}} does not require
+the inclusion of the `keyUsage` extension in a certificate if the
+certified public key is not used for verifying the signatures of other
+certificates or CRLs. Section 4.2.1.3 of {{!RFC5280}} says:
+
+> Conforming CAs MUST include this extension in certificates that
+   contain public keys that are used to validate digital signatures on
+   other public key certificates or CRLs.
+
+The allowance for the issuance of certificates without the `keyUsage`
+extension and the lack of a check for the inclusion of the `keyUsage`
+extension during CRL verification can manifest in a security issue. A
+concrete example is described below.
 
 1. The Certification Authority issues an end-entity CRL issuer
    certificate to subject `X` that certifies key `A` for signing CRLs by
@@ -157,7 +170,7 @@ algorithm as found in Section 6.3.3 of {{!RFC5280}}.
 
 *OLD:*
 
-(f) Obtain and validate the certification path for the issuer of
+> (f) Obtain and validate the certification path for the issuer of
     the complete CRL.  The trust anchor for the certification
     path MUST be the same as the trust anchor used to validate
     the target certificate.  If a `keyUsage` extension is present
@@ -166,7 +179,7 @@ algorithm as found in Section 6.3.3 of {{!RFC5280}}.
 
 *NEW:*
 
-(f) Obtain and validate the certification path for the issuer of
+> (f) Obtain and validate the certification path for the issuer of
     the complete CRL.  The trust anchor for the certification
     path MUST be the same as the trust anchor used to validate
     the target certificate.  Verify that the `keyUsage` extension is
