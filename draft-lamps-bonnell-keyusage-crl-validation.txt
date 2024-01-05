@@ -12,7 +12,7 @@ Expires: 8 July 2024                              大久保 智史 (T. Okubo)
 
 
    Clarification to processing Key Usage values during CRL validation
-    draft-lamps-bonnell-keyusage-crl-validation-clarification-latest
+           draft-lamps-bonnell-keyusage-crl-validation-latest
 
 Abstract
 
@@ -40,10 +40,10 @@ About This Document
 
    The latest revision of this draft can be found at
    https://CBonnell.github.io/lamps-keyusage-crl-validation-
-   clarification/draft-lamps-bonnell-keyusage-crl-validation-
-   clarification.html.  Status information for this document may be
-   found at https://datatracker.ietf.org/doc/draft-lamps-bonnell-
-   keyusage-crl-validation-clarification/.
+   clarification/draft-lamps-bonnell-keyusage-crl-validation.html.
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-lamps-bonnell-keyusage-crl-
+   validation/.
 
    Source for this draft and an issue tracker can be found at
    https://github.com/CBonnell/lamps-keyusage-crl-validation-
