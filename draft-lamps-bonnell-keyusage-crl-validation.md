@@ -21,7 +21,7 @@ venue:
 #  mail: WG@example.com
 #  arch: https://example.com/WG
   github: "CBonnell/lamps-keyusage-crl-validation-clarification"
-  latest: "https://CBonnell.github.io/lamps-keyusage-crl-validation-clarification/draft-lamps-bonnell-keyusage-crl-validation-clarification.html"
+  latest: "https://CBonnell.github.io/lamps-keyusage-crl-validation-clarification/draft-lamps-bonnell-keyusage-crl-validation.html"
 updates: 5280
 
 author:
