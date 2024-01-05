@@ -3,7 +3,7 @@ title: "Clarification to processing Key Usage values during CRL validation"
 abbrev: "CRL validation clarification"
 category: std
 
-docname: draft-lamps-bonnell-keyusage-crl-validation-clarification-latest
+docname: draft-lamps-bonnell-keyusage-crl-validation-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
