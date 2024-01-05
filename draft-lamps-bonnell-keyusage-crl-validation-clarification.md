@@ -121,8 +121,8 @@ contains the following step for CRL validation:
     in the CRL issuer's certificate, verify that the `cRLSign` bit
     is set.
 
-Notably, there is no requirement to verify the presence of the
-`keyUsage` extension itself.
+Notably, there is no requirement for certificate-consuming applications
+to verify the presence of the `keyUsage` extension itself.
 
 Additionally, the certificate profile in {{!RFC5280}} does not require
 the inclusion of the `keyUsage` extension in a certificate if the
