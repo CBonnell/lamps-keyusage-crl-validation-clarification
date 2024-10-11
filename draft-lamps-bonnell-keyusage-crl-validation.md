@@ -92,18 +92,18 @@ to resolve these concerns.
 
 In some Public Key Infrastructures, entities are delegated by
 Certification Authorities to sign CRLs. CRLs whose scope encompasses
-certificates that have not been issued by the CRL issuer are known as
+certificates that have not been signed by the CRL issuer are known as
 "indirect CRLs".
 
 Certification Authorities delegate the issuance of CRLs
 to other entities by issuing to the entity a certificate that asserts
 the `cRLSign` bit in the `keyUsage` extension. The Certification
-Authority will then issue certificates that fall within the scope of the
+Authority will then sign certificates that fall within the scope of the
 indirect CRL by including the `crlDistributionPoints` extension and
 specifying the distinguished name ("DN") of the CRL issuer in the
 `cRLIssuer` field of the corresponding distribution point.
 
-The CRL issuer issues CRLs that assert the `indirectCRL` boolean within
+The CRL issuer signs CRLs that assert the `indirectCRL` boolean within
 the `issuingDistributionPoint` extension.
 
 Applications which consume CRLs follow the validation algorithm as
@@ -134,16 +134,16 @@ extension and the lack of a check for the inclusion of the `keyUsage`
 extension during CRL verification can manifest in a security issue. A
 concrete example is described below.
 
-1. The Certification Authority issues an end-entity CRL issuer
+1. The Certification Authority signs an end-entity CRL issuer
    certificate to subject `X` that certifies key `A` for signing CRLs by
    explicitly including the `keyUsage` extension and asserting the
    `cRLSign` bit in accordance with Section 4.2.1.3 of {{!RFC5280}}.
-2. The Certification Authority issues one or more certificates that
+2. The Certification Authority signs one or more certificates that
    include the crlDistributionPoints extension with the DN for subject
    `X` included in the `cRLIssuer` field. This indicates that the
    CRL-based revocation information for these certificates will be
    provided by subject `X`.
-3. The Certification Authority issues an end-entity certificate to
+3. The Certification Authority signs an end-entity certificate to
    subject `X` that certifies key `B`. This certificate contains no key
    usage extension, as the certified key is not intended to be used for
    signing CRLs and could be a “mundane” certificate of any type (e.g.,
@@ -151,7 +151,7 @@ concrete example is described below.
    key is stored on the filesystem of the secretary’s laptop, etc.).
 4. Subject `X` signs a CRL using key `B` and publishes the CRL at the
    `distributionPoint` specified in the `crlDistributionPoints`
-   extension of the certificates issued in step 2.
+   extension of the certificates signed in step 2.
 5. Relying parties download the CRL published in step 4. The CRL
    validates successfully according to Section 6.3.3 of {{!RFC5280}},
    as the CRL issuer DN matches, and the check for the presence of the
@@ -184,11 +184,11 @@ algorithm as found in Section 6.3.3 of {{!RFC5280}}.
 
 # Security Considerations
 
-If a Certification Authority has issued certificates to be used for
+If a Certification Authority has signed certificates to be used for
 CRL verification but do not include the `keyUsage` extension in
 accordance with Section 4.2.1.3 of {{!RFC5280}}, then relying party
 applications that have implemented the modified verification algorithm
-as specified in this document will be unable to verify CRLs issued by
+as specified in this document will be unable to verify CRLs signed by
 the CRL issuer in question.
 
 It is strongly RECOMMENDED that Certification Authorities include the
