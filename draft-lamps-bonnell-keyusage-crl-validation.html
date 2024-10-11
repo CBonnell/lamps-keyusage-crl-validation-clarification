@@ -25,25 +25,24 @@ therefore does not explicitly have the  cRLSign  bit asserted.
 to explicitly require the presence of the  keyUsage  extension in CRL
 issuer certificates to resolve this issue. 
     " name="description">
-<meta content="xml2rfc 3.21.0" name="generator">
+<meta content="xml2rfc 3.23.2" name="generator">
 <meta content="next generation" name="keyword">
 <meta content="unicorn" name="keyword">
 <meta content="sparkling distributed ledger" name="keyword">
 <meta content="draft-lamps-bonnell-keyusage-crl-validation-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.21.0
-    Python 3.12.3
+  xml2rfc 3.23.2
+    Python 3.12.7
     ConfigArgParse 1.7
-    google-i18n-address 3.1.0
+    google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.4
     lxml 4.9.4
-    platformdirs 4.2.2
+    platformdirs 4.3.6
     pycountry 22.3.5
     PyYAML 6.0.1
-    requests 2.31.0
-    setuptools 69.5.1
-    six 1.16.0
+    requests 2.32.3
+    setuptools 70.3.0
     wcwidth 0.2.13
 -->
 <link href="draft-lamps-bonnell-keyusage-crl-validation.xml" rel="alternate" type="application/rfc+xml">
@@ -1043,11 +1042,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">CRL validation clarification</td>
-<td class="right">July 2024</td>
+<td class="right">October 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Bonnell, et al.</td>
-<td class="center">Expires 3 January 2025</td>
+<td class="center">Expires 14 April 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1063,12 +1062,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc5280" class="eref">5280</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-07-02" class="published">2 July 2024</time>
+<time datetime="2024-10-11" class="published">11 October 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-01-03">3 January 2025</time></dd>
+<dd class="expires"><time datetime="2025-04-14">14 April 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1137,7 +1136,7 @@ issuer certificates to resolve this issue.<a href="#section-abstract-2" class="p
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 3 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 14 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1233,16 +1232,16 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       </h2>
 <p id="section-3-1">In some Public Key Infrastructures, entities are delegated by
 Certification Authorities to sign CRLs. CRLs whose scope encompasses
-certificates that have not been issued by the CRL issuer are known as
+certificates that have not been signed by the CRL issuer are known as
 "indirect CRLs".<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">Certification Authorities delegate the issuance of CRLs
 to other entities by issuing to the entity a certificate that asserts
 the <code>cRLSign</code> bit in the <code>keyUsage</code> extension. The Certification
-Authority will then issue certificates that fall within the scope of the
+Authority will then sign certificates that fall within the scope of the
 indirect CRL by including the <code>crlDistributionPoints</code> extension and
 specifying the distinguished name ("DN") of the CRL issuer in the
 <code>cRLIssuer</code> field of the corresponding distribution point.<a href="#section-3-2" class="pilcrow">¶</a></p>
-<p id="section-3-3">The CRL issuer issues CRLs that assert the <code>indirectCRL</code> boolean within
+<p id="section-3-3">The CRL issuer signs CRLs that assert the <code>indirectCRL</code> boolean within
 the <code>issuingDistributionPoint</code> extension.<a href="#section-3-3" class="pilcrow">¶</a></p>
 <p id="section-3-4">Applications which consume CRLs follow the validation algorithm as
 specified in Section 6.3 of <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>. In particular, Section 6.3.3
@@ -1276,20 +1275,20 @@ extension during CRL verification can manifest in a security issue. A
 concrete example is described below.<a href="#section-3-9" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3-10">
 <li id="section-3-10.1">
-          <p id="section-3-10.1.1">The Certification Authority issues an end-entity CRL issuer
+          <p id="section-3-10.1.1">The Certification Authority signs an end-entity CRL issuer
 certificate to subject <code>X</code> that certifies key <code>A</code> for signing CRLs by
 explicitly including the <code>keyUsage</code> extension and asserting the
 <code>cRLSign</code> bit in accordance with Section 4.2.1.3 of <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>.<a href="#section-3-10.1.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-3-10.2">
-          <p id="section-3-10.2.1">The Certification Authority issues one or more certificates that
+          <p id="section-3-10.2.1">The Certification Authority signs one or more certificates that
 include the crlDistributionPoints extension with the DN for subject
 <code>X</code> included in the <code>cRLIssuer</code> field. This indicates that the
 CRL-based revocation information for these certificates will be
 provided by subject <code>X</code>.<a href="#section-3-10.2.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-3-10.3">
-          <p id="section-3-10.3.1">The Certification Authority issues an end-entity certificate to
+          <p id="section-3-10.3.1">The Certification Authority signs an end-entity certificate to
 subject <code>X</code> that certifies key <code>B</code>. This certificate contains no key
 usage extension, as the certified key is not intended to be used for
 signing CRLs and could be a “mundane” certificate of any type (e.g.,
@@ -1299,7 +1298,7 @@ key is stored on the filesystem of the secretary’s laptop, etc.).<a href="#sec
         <li id="section-3-10.4">
           <p id="section-3-10.4.1">Subject <code>X</code> signs a CRL using key <code>B</code> and publishes the CRL at the
 <code>distributionPoint</code> specified in the <code>crlDistributionPoints</code>
-extension of the certificates issued in step 2.<a href="#section-3-10.4.1" class="pilcrow">¶</a></p>
+extension of the certificates signed in step 2.<a href="#section-3-10.4.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-3-10.5">
           <p id="section-3-10.5.1">Relying parties download the CRL published in step 4. The CRL
@@ -1348,11 +1347,11 @@ algorithm as found in Section 6.3.3 of <span>[<a href="#RFC5280" class="cite xre
       <h2 id="name-security-considerations">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-5-1">If a Certification Authority has issued certificates to be used for
+<p id="section-5-1">If a Certification Authority has signed certificates to be used for
 CRL verification but do not include the <code>keyUsage</code> extension in
 accordance with Section 4.2.1.3 of <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span>, then relying party
 applications that have implemented the modified verification algorithm
-as specified in this document will be unable to verify CRLs issued by
+as specified in this document will be unable to verify CRLs signed by
 the CRL issuer in question.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <p id="section-5-2">It is strongly <span class="bcp14">RECOMMENDED</span> that Certification Authorities include the
 <code>keyUsage</code> extension in certificates to be used for CRL verification to
