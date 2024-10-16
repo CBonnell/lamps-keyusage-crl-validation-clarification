@@ -6,9 +6,9 @@ Network Working Group                                         C. Bonnell
 Internet-Draft                                            DigiCert, Inc.
 Updates: 5280 (if approved)                           伊藤 忠彦 (T. Ito)
 Intended status: Standards Track                         SECOM CO., LTD.
-Expires: 14 April 2025                            大久保 智史 (T. Okubo)
-                                                          DigiCert, Inc.
-                                                         11 October 2024
+Expires: 19 April 2025                            大久保 智史 (T. Okubo)
+                                            Penguin Securities Pte. Ltd.
+                                                         16 October 2024
 
 
    Clarification to processing Key Usage values during CRL validation
@@ -64,7 +64,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 April 2025.
+   This Internet-Draft will expire on 19 April 2025.
 
 Copyright Notice
 
@@ -275,10 +275,10 @@ Authors' Addresses
 
 
    Tomofumi Okubo
-   DigiCert, Inc.
+   Penguin Securities Pte. Ltd.
    Email: tomofumi.okubo+ietf@gmail.com
 
    Additional contact information:
 
       大久保 智史
-      DigiCert, Inc.
+      Penguin Securities Pte. Ltd.
