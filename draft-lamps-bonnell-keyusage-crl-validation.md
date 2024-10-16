@@ -39,7 +39,7 @@ author:
     fullname:
       :: 大久保 智史
       ascii: Tomofumi Okubo
-    organization: DigiCert, Inc.
+    organization: Penguin Securities Pte. Ltd.
     email: tomofumi.okubo+ietf@gmail.com
 
 normative:
