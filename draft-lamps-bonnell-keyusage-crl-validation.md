@@ -55,16 +55,13 @@ that certificates which certify keys for signing CRLs contain the key
 usage extension with the `cRLSign` bit asserted. Additionally, RFC 5280
 defines steps for the validation of CRLs. While there is a requirement
 for CRL validators to verify that the `cRLSign` bit is asserted in the
-`keyUsage` extension of the CRL issuer's certificate, there is no
-requirement for validators to verify the presence of the `keyUsage`
-extension itself. The lack of this requirement will cause
-verifiers that implement the RFC 5280 CRL validation algorithm to accept
-a CRL which is signed by a certificate with no `keyUsage` extension, and
-therefore does not explicitly have the `cRLSign` bit asserted.
-
-This document specifies an enhancement to the CRL validation process
-to explicitly require the presence of the `keyUsage` extension in CRL
-issuer certificates to resolve this issue.
+`keyUsage` extension of the CRL issuer's certificate, this document
+clarifies the requirement for relying parties to also verify the
+presence of the `keyUsage` extension in the CRL issuer's certificate.
+This check remediates a potential security issue that arises when
+relying parties accept a CRL which is signed by a certificate with no
+`keyUsage` extension, and therefore does not explicitly have the
+`cRLSign` bit asserted.
 
 --- middle
 
@@ -74,21 +71,21 @@ issuer certificates to resolve this issue.
 revocation lists (CRLs) for use in the Internet. Section 4.2.1.3 of
 {{!RFC5280}} requires CRL issuer certificates to contain the `keyUsage`
 extension with the `cRLSign` bit asserted. However, the CRL validation
-algorithm specified in Section 6.3 od {{!RFC5280}} does not include a
-corresponding check for the `cRLSign` bit within the `keyUsage`
-certificate extension. This document updates {{!RFC5280}} to implement
+algorithm specified in Section 6.3 of {{!RFC5280}} does not explicitly
+include a corresponding check for the presence of the the `keyUsage`
+certificate extension. This document updates {{!RFC5280}} to require
 that check.
 
-{{the-issue}} describes the security concerns that motivate this update.
+{{the-issue}} describes the security concern that motivates this update.
 
 {{crl-validation-algo-amendment}} updates the CRL validation algorithm
-to resolve these concerns.
+to resolve this concern.
 
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
 
-# The risk of signing CRLs with non-certified keys {#the-issue}
+# The risk of trusting CRLs signed with non-certified keys {#the-issue}
 
 In some Public Key Infrastructures, entities are delegated by
 Certification Authorities to sign CRLs. CRLs whose scope encompasses
@@ -117,8 +114,8 @@ contains the following step for CRL validation:
     in the CRL issuer's certificate, verify that the `cRLSign` bit
     is set.
 
-Notably, there is no requirement for certificate-consuming applications
-to verify the presence of the `keyUsage` extension itself.
+This step does not explicitly specify a check for the presence of the
+`keyUsage` extension itself.
 
 Additionally, the certificate profile in {{!RFC5280}} does not require
 the inclusion of the `keyUsage` extension in a certificate if the
@@ -148,7 +145,7 @@ concrete example is described below.
    usage extension, as the certified key is not intended to be used for
    signing CRLs and could be a “mundane” certificate of any type (e.g.,
    S/MIME, document signing certificate where the corresponding private
-   key is stored on the filesystem of the secretary’s laptop, etc.).
+   key is stored on the filesystem of the secretary's laptop, etc.).
 4. Subject `X` signs a CRL using key `B` and publishes the CRL at the
    `distributionPoint` specified in the `crlDistributionPoints`
    extension of the certificates signed in step 2.
