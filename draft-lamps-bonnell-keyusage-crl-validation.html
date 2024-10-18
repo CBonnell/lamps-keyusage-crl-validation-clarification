@@ -15,15 +15,13 @@ that certificates which certify keys for signing CRLs contain the key
 usage extension with the  cRLSign  bit asserted. Additionally, RFC 5280
 defines steps for the validation of CRLs. While there is a requirement
 for CRL validators to verify that the  cRLSign  bit is asserted in the
- keyUsage  extension of the CRL issuer's certificate, there is no
-requirement for validators to verify the presence of the  keyUsage 
-extension itself. The lack of this requirement will cause
-verifiers that implement the RFC 5280 CRL validation algorithm to accept
-a CRL which is signed by a certificate with no  keyUsage  extension, and
-therefore does not explicitly have the  cRLSign  bit asserted. 
-       This document specifies an enhancement to the CRL validation process
-to explicitly require the presence of the  keyUsage  extension in CRL
-issuer certificates to resolve this issue. 
+ keyUsage  extension of the CRL issuer's certificate, this document
+clarifies the requirement for relying parties to also verify the
+presence of the  keyUsage  extension in the CRL issuer's certificate.
+This check remediates a potential security issue that arises when
+relying parties accept a CRL which is signed by a certificate with no
+ keyUsage  extension, and therefore does not explicitly have the
+ cRLSign  bit asserted. 
     " name="description">
 <meta content="xml2rfc 3.23.2" name="generator">
 <meta content="next generation" name="keyword">
@@ -1046,7 +1044,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Bonnell, et al.</td>
-<td class="center">Expires 19 April 2025</td>
+<td class="center">Expires 21 April 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1062,12 +1060,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc5280" class="eref">5280</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-10-16" class="published">16 October 2024</time>
+<time datetime="2024-10-18" class="published">18 October 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-04-19">19 April 2025</time></dd>
+<dd class="expires"><time datetime="2025-04-21">21 April 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1096,15 +1094,13 @@ that certificates which certify keys for signing CRLs contain the key
 usage extension with the <code>cRLSign</code> bit asserted. Additionally, RFC 5280
 defines steps for the validation of CRLs. While there is a requirement
 for CRL validators to verify that the <code>cRLSign</code> bit is asserted in the
-<code>keyUsage</code> extension of the CRL issuer's certificate, there is no
-requirement for validators to verify the presence of the <code>keyUsage</code>
-extension itself. The lack of this requirement will cause
-verifiers that implement the RFC 5280 CRL validation algorithm to accept
-a CRL which is signed by a certificate with no <code>keyUsage</code> extension, and
-therefore does not explicitly have the <code>cRLSign</code> bit asserted.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">This document specifies an enhancement to the CRL validation process
-to explicitly require the presence of the <code>keyUsage</code> extension in CRL
-issuer certificates to resolve this issue.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<code>keyUsage</code> extension of the CRL issuer's certificate, this document
+clarifies the requirement for relying parties to also verify the
+presence of the <code>keyUsage</code> extension in the CRL issuer's certificate.
+This check remediates a potential security issue that arises when
+relying parties accept a CRL which is signed by a certificate with no
+<code>keyUsage</code> extension, and therefore does not explicitly have the
+<code>cRLSign</code> bit asserted.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1136,7 +1132,7 @@ issuer certificates to resolve this issue.<a href="#section-abstract-2" class="p
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 19 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 21 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1172,7 +1168,7 @@ issuer certificates to resolve this issue.<a href="#section-abstract-2" class="p
             <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-the-risk-of-signing-crls-wi" class="internal xref">The risk of signing CRLs with non-certified keys</a></p>
+            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-the-risk-of-trusting-crls-s" class="internal xref">The risk of trusting CRLs signed with non-certified keys</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-checking-the-presence-of-th" class="internal xref">Checking the presence of the <code>keyUsage</code> extension</a></p>
@@ -1205,13 +1201,13 @@ issuer certificates to resolve this issue.<a href="#section-abstract-2" class="p
 revocation lists (CRLs) for use in the Internet. Section 4.2.1.3 of
 <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> requires CRL issuer certificates to contain the <code>keyUsage</code>
 extension with the <code>cRLSign</code> bit asserted. However, the CRL validation
-algorithm specified in Section 6.3 od <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> does not include a
-corresponding check for the <code>cRLSign</code> bit within the <code>keyUsage</code>
-certificate extension. This document updates <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> to implement
+algorithm specified in Section 6.3 of <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> does not explicitly
+include a corresponding check for the presence of the the <code>keyUsage</code>
+certificate extension. This document updates <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> to require
 that check.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2"><a href="#the-issue" class="auto internal xref">Section 3</a> describes the security concerns that motivate this update.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-2"><a href="#the-issue" class="auto internal xref">Section 3</a> describes the security concern that motivates this update.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3"><a href="#crl-validation-algo-amendment" class="auto internal xref">Section 4</a> updates the CRL validation algorithm
-to resolve these concerns.<a href="#section-1-3" class="pilcrow">¶</a></p>
+to resolve this concern.<a href="#section-1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1227,8 +1223,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 </div>
 <div id="the-issue">
 <section id="section-3">
-      <h2 id="name-the-risk-of-signing-crls-wi">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-the-risk-of-signing-crls-wi" class="section-name selfRef">The risk of signing CRLs with non-certified keys</a>
+      <h2 id="name-the-risk-of-trusting-crls-s">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-the-risk-of-trusting-crls-s" class="section-name selfRef">The risk of trusting CRLs signed with non-certified keys</a>
       </h2>
 <p id="section-3-1">In some Public Key Infrastructures, entities are delegated by
 Certification Authorities to sign CRLs. CRLs whose scope encompasses
@@ -1256,8 +1252,8 @@ contains the following step for CRL validation:<a href="#section-3-4" class="pil
     is set.<a href="#section-3-5.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-3-6">Notably, there is no requirement for certificate-consuming applications
-to verify the presence of the <code>keyUsage</code> extension itself.<a href="#section-3-6" class="pilcrow">¶</a></p>
+<p id="section-3-6">This step does not explicitly specify a check for the presence of the
+<code>keyUsage</code> extension itself.<a href="#section-3-6" class="pilcrow">¶</a></p>
 <p id="section-3-7">Additionally, the certificate profile in <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> does not require
 the inclusion of the <code>keyUsage</code> extension in a certificate if the
 certified public key is not used for verifying the signatures of other
@@ -1293,7 +1289,7 @@ subject <code>X</code> that certifies key <code>B</code>. This certificate conta
 usage extension, as the certified key is not intended to be used for
 signing CRLs and could be a “mundane” certificate of any type (e.g.,
 S/MIME, document signing certificate where the corresponding private
-key is stored on the filesystem of the secretary’s laptop, etc.).<a href="#section-3-10.3.1" class="pilcrow">¶</a></p>
+key is stored on the filesystem of the secretary's laptop, etc.).<a href="#section-3-10.3.1" class="pilcrow">¶</a></p>
 </li>
         <li id="section-3-10.4">
           <p id="section-3-10.4.1">Subject <code>X</code> signs a CRL using key <code>B</code> and publishes the CRL at the
