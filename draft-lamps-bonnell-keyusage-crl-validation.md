@@ -72,7 +72,7 @@ revocation lists (CRLs) for use in the Internet. Section 4.2.1.3 of
 {{!RFC5280}} requires CRL issuer certificates to contain the `keyUsage`
 extension with the `cRLSign` bit asserted. However, the CRL validation
 algorithm specified in Section 6.3 of {{!RFC5280}} does not explicitly
-include a corresponding check for the presence of the the `keyUsage`
+include a corresponding check for the presence of the `keyUsage`
 certificate extension. This document updates {{!RFC5280}} to require
 that check.
 
