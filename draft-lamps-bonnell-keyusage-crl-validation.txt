@@ -6,9 +6,9 @@ Network Working Group                                         C. Bonnell
 Internet-Draft                                            DigiCert, Inc.
 Updates: 5280 (if approved)                           伊藤 忠彦 (T. Ito)
 Intended status: Standards Track                         SECOM CO., LTD.
-Expires: 21 April 2025                            大久保 智史 (T. Okubo)
+Expires: 6 May 2025                               大久保 智史 (T. Okubo)
                                             Penguin Securities Pte. Ltd.
-                                                         18 October 2024
+                                                         2 November 2024
 
 
    Clarification to processing Key Usage values during CRL validation
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 April 2025.
+   This Internet-Draft will expire on 6 May 2025.
 
 Copyright Notice
 
@@ -95,7 +95,7 @@ Table of Contents
    [RFC5280] requires CRL issuer certificates to contain the keyUsage
    extension with the cRLSign bit asserted.  However, the CRL validation
    algorithm specified in Section 6.3 of [RFC5280] does not explicitly
-   include a corresponding check for the presence of the the keyUsage
+   include a corresponding check for the presence of the keyUsage
    certificate extension.  This document updates [RFC5280] to require
    that check.
 
