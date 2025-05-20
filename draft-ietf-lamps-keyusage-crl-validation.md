@@ -3,7 +3,7 @@ title: "Clarification to processing Key Usage values during CRL validation"
 abbrev: "CRL validation clarification"
 category: std
 
-docname: draft-lamps-bonnell-keyusage-crl-validation-latest
+docname: draft-ietf-lamps-keyusage-crl-validation-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
@@ -21,7 +21,7 @@ venue:
 #  mail: WG@example.com
 #  arch: https://example.com/WG
   github: "CBonnell/lamps-keyusage-crl-validation-clarification"
-  latest: "https://CBonnell.github.io/lamps-keyusage-crl-validation-clarification/draft-lamps-bonnell-keyusage-crl-validation.html"
+  latest: "https://CBonnell.github.io/ietf-lamps-keyusage-crl-validation-clarification/draft-ietf-lamps-keyusage-crl-validation.html"
 updates: 5280
 
 author:
