@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-03T00:54:39.804003+00:00",
+  "timestamp": "2025-07-06T00:59:45.594041+00:00",
   "repo": "CBonnell/lamps-keyusage-crl-validation-clarification",
   "labels": [
     {
@@ -50,5 +50,32 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOKyxaFM6dRCvw",
+      "title": "Add v1 and v2 exception",
+      "url": "https://github.com/CBonnell/lamps-keyusage-crl-validation-clarification/pull/1",
+      "state": "OPEN",
+      "author": "CBonnell",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "MSJ pointed out that v1 trust anchors are still encountered. Add a carve-out for this legacy use of v1 (and v2, if any such certificates exist in the wild).",
+      "createdAt": "2025-07-03T13:04:07Z",
+      "updatedAt": "2025-07-03T13:09:51Z",
+      "baseRepository": "CBonnell/lamps-keyusage-crl-validation-clarification",
+      "baseRefName": "main",
+      "baseRefOid": "cccdd4e818754fb82f34359a0c2934cc2578bc9c",
+      "headRepository": "CBonnell/lamps-keyusage-crl-validation-clarification",
+      "headRefName": "v1-v2-exception",
+      "headRefOid": "a0078fbc699c112ccee896682f53a7f6719d8084",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
