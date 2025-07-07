@@ -175,9 +175,15 @@ algorithm as found in Section 6.3.3 of {{!RFC5280}}.
 > (f) Obtain and validate the certification path for the issuer of
     the complete CRL.  The trust anchor for the certification
     path MUST be the same as the trust anchor used to validate
-    the target certificate.  Verify that the `keyUsage` extension is
-    present in the CRL issuer's certificate and verify that the `cRLSign`
-    bit is set.
+    the target certificate.  If the version of the CRL issuer’s
+    certificate is version 3 (v3), then verify that the keyUsage
+    extension is present and verify that the cRLSign bit is set.
+
+This change ensures that the CRL issuer's key is certified for
+CRL signing. However, this check is not performed if the CRL
+issuer's key is certified using a version 1 (v1) or version 2 (v2) X.509
+certificate, as these versions do not have an `extensions` field where
+the key usage extension can be included.
 
 # Security Considerations
 
