@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-06T00:59:45.594041+00:00",
+  "timestamp": "2025-07-08T00:54:52.847703+00:00",
   "repo": "CBonnell/lamps-keyusage-crl-validation-clarification",
   "labels": [
     {
@@ -56,26 +56,42 @@
       "id": "PR_kwDOKyxaFM6dRCvw",
       "title": "Add v1 and v2 exception",
       "url": "https://github.com/CBonnell/lamps-keyusage-crl-validation-clarification/pull/1",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "CBonnell",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "MSJ pointed out that v1 trust anchors are still encountered. Add a carve-out for this legacy use of v1 (and v2, if any such certificates exist in the wild).",
       "createdAt": "2025-07-03T13:04:07Z",
-      "updatedAt": "2025-07-03T13:09:51Z",
+      "updatedAt": "2025-07-07T18:50:46Z",
       "baseRepository": "CBonnell/lamps-keyusage-crl-validation-clarification",
       "baseRefName": "main",
       "baseRefOid": "cccdd4e818754fb82f34359a0c2934cc2578bc9c",
       "headRepository": "CBonnell/lamps-keyusage-crl-validation-clarification",
       "headRefName": "v1-v2-exception",
       "headRefOid": "a0078fbc699c112ccee896682f53a7f6719d8084",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-07-07T18:50:40Z",
+      "mergedAt": "2025-07-07T18:50:40Z",
+      "mergedBy": "CBonnell",
+      "mergeCommit": {
+        "oid": "b8f85c5ff05af37b46f1634481fa81b54213d9f5"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOKyxaFM6yVmc8",
+          "commit": {
+            "abbreviatedOid": "a0078fb"
+          },
+          "author": "tadahik",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "It looks good to me.\r\n\r\nIf an implementation is only used for v3 certificate,\r\nthat implementation might not need to check if version is 3 or not, according to later sentence of following text.\r\n\r\n(from RFC 5280 Section 6.3)\r\n> Conforming implementations that support CRLs\r\n> are not required to implement this algorithm, but they MUST be\r\n> functionally equivalent to the external behavior resulting from this\r\n> procedure when processing CRLs that are issued in conformance with\r\n> this profile.  Any algorithm may be used by a particular\r\n> implementation so long as it derives the correct result.",
+          "createdAt": "2025-07-07T02:44:07Z",
+          "updatedAt": "2025-07-07T04:14:58Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
