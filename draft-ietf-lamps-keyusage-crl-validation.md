@@ -214,4 +214,4 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge.
+The authors would like to thank the participants on the LAMPS Working Group mailing list for their insightful feedback and comments. In particular, the author extends sincere appreciation to Carl Wallace, Michael St. Johns, and Russ Housley for their reviews and suggestions, which greatly improved the quality of this document.
