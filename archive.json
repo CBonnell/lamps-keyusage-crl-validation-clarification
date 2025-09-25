@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-23T00:47:44.196443+00:00",
+  "timestamp": "2025-09-25T00:49:15.355212+00:00",
   "repo": "CBonnell/lamps-keyusage-crl-validation-clarification",
   "labels": [
     {
@@ -92,6 +92,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOKyxaFM6qGN6j",
+      "title": "Acknowledge",
+      "url": "https://github.com/CBonnell/lamps-keyusage-crl-validation-clarification/pull/2",
+      "state": "OPEN",
+      "author": "CBonnell",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-09-23T15:28:16Z",
+      "updatedAt": "2025-09-23T19:00:42Z",
+      "baseRepository": "CBonnell/lamps-keyusage-crl-validation-clarification",
+      "baseRefName": "main",
+      "baseRefOid": "b8f85c5ff05af37b46f1634481fa81b54213d9f5",
+      "headRepository": "CBonnell/lamps-keyusage-crl-validation-clarification",
+      "headRefName": "acknowledge",
+      "headRefOid": "c0492a962e6f4be76f625bae67bc3902aa99efb1",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
