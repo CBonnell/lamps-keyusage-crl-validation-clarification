@@ -6,9 +6,9 @@ Network Working Group                                         C. Bonnell
 Internet-Draft                                            DigiCert, Inc.
 Updates: 5280 (if approved)                           伊藤 忠彦 (T. Ito)
 Intended status: Standards Track                         SECOM CO., LTD.
-Expires: 27 March 2026                            大久保 智史 (T. Okubo)
+Expires: 3 April 2026                             大久保 智史 (T. Okubo)
                                             Penguin Securities Pte. Ltd.
-                                                       23 September 2025
+                                                       30 September 2025
 
 
    Clarification to processing Key Usage values during CRL validation
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 March 2026.
+   This Internet-Draft will expire on 3 April 2026.
 
 Copyright Notice
 
@@ -261,7 +261,8 @@ Acknowledgments
    The authors would like to thank the participants on the LAMPS Working
    Group mailing list for their insightful feedback and comments.  In
    particular, the authors extend sincere appreciation to Carl Wallace,
-   Michael St. Johns, and Russ Housley for their reviews and
+   David Hook, John Gray, Michael St. Johns, Mike Ounsworth, Russ
+   Housley, Serge Mister, and Tomas Gustafson for their reviews and
    suggestions, which greatly improved the quality of this document.
 
 Authors' Addresses
