@@ -262,7 +262,7 @@ Acknowledgments
    Group mailing list for their insightful feedback and comments.  In
    particular, the authors extend sincere appreciation to Carl Wallace,
    David Hook, John Gray, Michael St. Johns, Mike Ounsworth, Russ
-   Housley, Serge Mister, and Tomas Gustafson for their reviews and
+   Housley, Serge Mister, and Tomas Gustavsson for their reviews and
    suggestions, which greatly improved the quality of this document.
 
 Authors' Addresses
