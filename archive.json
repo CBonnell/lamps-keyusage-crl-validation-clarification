@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-30T00:49:41.725046+00:00",
+  "timestamp": "2025-10-02T00:47:24.781269+00:00",
   "repo": "CBonnell/lamps-keyusage-crl-validation-clarification",
   "labels": [
     {
@@ -98,26 +98,42 @@
       "id": "PR_kwDOKyxaFM6qGN6j",
       "title": "Acknowledge",
       "url": "https://github.com/CBonnell/lamps-keyusage-crl-validation-clarification/pull/2",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "CBonnell",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-09-23T15:28:16Z",
-      "updatedAt": "2025-09-23T19:00:42Z",
+      "updatedAt": "2025-10-01T13:35:08Z",
       "baseRepository": "CBonnell/lamps-keyusage-crl-validation-clarification",
       "baseRefName": "main",
       "baseRefOid": "b8f85c5ff05af37b46f1634481fa81b54213d9f5",
       "headRepository": "CBonnell/lamps-keyusage-crl-validation-clarification",
       "headRefName": "acknowledge",
-      "headRefOid": "c0492a962e6f4be76f625bae67bc3902aa99efb1",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "8aba50ab35eeea0967af65c02b592a6bc7d9ef6a",
+      "closedAt": "2025-10-01T13:35:03Z",
+      "mergedAt": "2025-10-01T13:35:03Z",
+      "mergedBy": "CBonnell",
+      "mergeCommit": {
+        "oid": "c10c3a83ba6d1ad872e4d78355bcdc45d7011f6d"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOKyxaFM7EAniw",
+          "commit": {
+            "abbreviatedOid": "8aba50a"
+          },
+          "author": "tadahik",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-01T10:36:53Z",
+          "updatedAt": "2025-10-01T10:36:53Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
