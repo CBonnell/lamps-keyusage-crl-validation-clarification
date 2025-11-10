@@ -50,18 +50,13 @@ informative:
 --- abstract
 
 RFC 5280 defines the profile of X.509 certificates and certificate
-revocation lists (CRLs) for use in the Internet. This profile requires
-that certificates which certify keys for signing CRLs contain the key
-usage extension with the `cRLSign` bit asserted. Additionally, RFC 5280
-defines steps for the validation of CRLs. While there is a requirement
-for CRL validators to verify that the `cRLSign` bit is asserted in the
-`keyUsage` extension of the CRL issuer's certificate, this document
-clarifies the requirement for relying parties to also verify the
-presence of the `keyUsage` extension in the CRL issuer's certificate.
-This check remediates a potential security issue that arises when
-relying parties accept a CRL which is signed by a certificate with no
-`keyUsage` extension, and therefore does not explicitly have the
-`cRLSign` bit asserted.
+revocation lists (CRLs) for use in the Internet. Section 4.2.1.3 of
+RFC 5280 requires CRL issuer certificates to contain the `keyUsage`
+extension with the `cRLSign` bit asserted. However, the CRL validation
+algorithm specified in Section 6.3 of RFC 5280 does not explicitly
+include a corresponding check for the presence of the `keyUsage`
+certificate extension. This document updates RFC 5280 to require
+that check.
 
 --- middle
 
@@ -92,17 +87,6 @@ Certification Authorities to sign CRLs. CRLs whose scope encompasses
 certificates that have not been signed by the CRL issuer are known as
 "indirect CRLs".
 
-Certification Authorities delegate the issuance of CRLs
-to other entities by issuing to the entity a certificate that asserts
-the `cRLSign` bit in the `keyUsage` extension. The Certification
-Authority will then sign certificates that fall within the scope of the
-indirect CRL by including the `crlDistributionPoints` extension and
-specifying the distinguished name ("DN") of the CRL issuer in the
-`cRLIssuer` field of the corresponding distribution point.
-
-The CRL issuer signs CRLs that assert the `indirectCRL` boolean within
-the `issuingDistributionPoint` extension.
-
 Applications which consume CRLs follow the validation algorithm as
 specified in Section 6.3 of {{!RFC5280}}. In particular, Section 6.3.3
 contains the following step for CRL validation:
@@ -120,11 +104,18 @@ This step does not explicitly specify a check for the presence of the
 Additionally, the certificate profile in {{!RFC5280}} does not require
 the inclusion of the `keyUsage` extension in a certificate if the
 certified public key is not used for verifying the signatures of other
-certificates or CRLs. Section 4.2.1.3 of {{!RFC5280}} says:
+certificates or CRLs.
 
-> Conforming CAs MUST include this extension in certificates that
-   contain public keys that are used to validate digital signatures on
-   other public key certificates or CRLs.
+Certification Authorities delegate the issuance of CRLs
+to other entities by issuing to the entity a certificate that asserts
+the `cRLSign` bit in the `keyUsage` extension. The Certification
+Authority will then sign certificates that fall within the scope of the
+indirect CRL by including the `crlDistributionPoints` extension and
+specifying the distinguished name ("DN") of the CRL issuer in the
+`cRLIssuer` field of the corresponding distribution point.
+
+The CRL issuer signs CRLs that assert the `indirectCRL` boolean within
+the `issuingDistributionPoint` extension.
 
 The allowance for the issuance of certificates without the `keyUsage`
 extension and the lack of a check for the inclusion of the `keyUsage`
@@ -214,4 +205,4 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-The authors would like to thank the participants on the LAMPS Working Group mailing list for their insightful feedback and comments. In particular, the authors extend sincere appreciation to Carl Wallace, David Hook, John Gray, Michael St. Johns, Mike Ounsworth, Russ Housley, Serge Mister, and Tomas Gustavsson for their reviews and suggestions, which greatly improved the quality of this document.
+The authors would like to thank the participants on the LAMPS Working Group mailing list for their insightful feedback and comments. In particular, the authors extend sincere appreciation to Carl Wallace, David Hook, Deb Cooley, John Gray, Michael St. Johns, Mike Ounsworth, Russ Housley, Serge Mister, and Tomas Gustavsson for their reviews and suggestions, which greatly improved the quality of this document.
