@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-11-09T00:55:26.601990+00:00",
+  "timestamp": "2025-11-11T00:53:46.826391+00:00",
   "repo": "CBonnell/lamps-keyusage-crl-validation-clarification",
   "labels": [
     {
@@ -134,6 +134,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOKyxaFM6yldDF",
+      "title": "Incorporate Deb's feedback",
+      "url": "https://github.com/CBonnell/lamps-keyusage-crl-validation-clarification/pull/3",
+      "state": "OPEN",
+      "author": "CBonnell",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-11-10T17:33:32Z",
+      "updatedAt": "2025-11-10T21:35:05Z",
+      "baseRepository": "CBonnell/lamps-keyusage-crl-validation-clarification",
+      "baseRefName": "main",
+      "baseRefOid": "825f8ed38b7a2054251baacc861dfca1c389643c",
+      "headRepository": "CBonnell/lamps-keyusage-crl-validation-clarification",
+      "headRefName": "deb-feedback",
+      "headRefOid": "7d7560fba11c4b4ab157a89c22d725708ed07d56",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
