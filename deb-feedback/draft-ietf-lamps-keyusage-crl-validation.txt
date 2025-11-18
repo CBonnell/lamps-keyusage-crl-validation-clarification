@@ -6,9 +6,9 @@ Network Working Group                                         C. Bonnell
 Internet-Draft                                            DigiCert, Inc.
 Updates: 5280 (if approved)                           伊藤 忠彦 (T. Ito)
 Intended status: Standards Track                         SECOM CO., LTD.
-Expires: 14 May 2026                              大久保 智史 (T. Okubo)
+Expires: 22 May 2026                              大久保 智史 (T. Okubo)
                                             Penguin Securities Pte. Ltd.
-                                                        10 November 2025
+                                                        18 November 2025
 
 
    Clarification to processing Key Usage values during CRL validation
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 May 2026.
+   This Internet-Draft will expire on 22 May 2026.
 
 Copyright Notice
 
@@ -127,12 +127,12 @@ Table of Contents
    This step does not explicitly specify a check for the presence of the
    keyUsage extension itself.
 
-   Additionally, the certificate profile in [RFC5280] does not require
-   the inclusion of the keyUsage extension in a certificate if the
-   certified public key is not used for verifying the signatures of
-   other certificates or CRLs.
+   Similarly, the certificate profile in [RFC5280] does not require the
+   inclusion of the keyUsage extension in a certificate if the certified
+   public key is not used for verifying the signatures of other
+   certificates or CRLs.
 
-   Certification Authorities delegate the issuance of CRLs to other
+   Certification Authorities can delegate the issuance of CRLs to other
    entities by issuing to the entity a certificate that asserts the
    cRLSign bit in the keyUsage extension.  The Certification Authority
    will then sign certificates that fall within the scope of the
