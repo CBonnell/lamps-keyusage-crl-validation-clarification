@@ -101,12 +101,12 @@ contains the following step for CRL validation:
 This step does not explicitly specify a check for the presence of the
 `keyUsage` extension itself.
 
-Additionally, the certificate profile in {{!RFC5280}} does not require
+Similarly, the certificate profile in {{!RFC5280}} does not require
 the inclusion of the `keyUsage` extension in a certificate if the
 certified public key is not used for verifying the signatures of other
 certificates or CRLs.
 
-Certification Authorities delegate the issuance of CRLs
+Certification Authorities can delegate the issuance of CRLs
 to other entities by issuing to the entity a certificate that asserts
 the `cRLSign` bit in the `keyUsage` extension. The Certification
 Authority will then sign certificates that fall within the scope of the
