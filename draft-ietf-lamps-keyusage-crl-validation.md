@@ -205,4 +205,4 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-The authors would like to thank the participants on the LAMPS Working Group mailing list for their insightful feedback and comments. In particular, the authors extend sincere appreciation to Carl Wallace, David Hook, Deb Cooley, John Gray, Michael St. Johns, Mike Ounsworth, Russ Housley, Serge Mister, and Tomas Gustavsson for their reviews and suggestions, which greatly improved the quality of this document.
+The authors would like to thank the participants on the LAMPS Working Group mailing list for their insightful feedback and comments. In particular, the authors extend sincere appreciation to Carl Wallace, David Hook, Deb Cooley, John Gray, Michael St. Johns, Mike Ounsworth, Mohamed Boucadair, Russ Housley, Serge Mister, and Tomas Gustavsson for their reviews and suggestions, which greatly improved the quality of this document.
