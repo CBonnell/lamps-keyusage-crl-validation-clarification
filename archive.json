@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-04T00:54:12.498886+00:00",
+  "timestamp": "2025-12-07T00:59:44.437214+00:00",
   "repo": "CBonnell/lamps-keyusage-crl-validation-clarification",
   "labels": [
     {
@@ -173,6 +173,46 @@
           "body": "looks good to me.",
           "createdAt": "2025-11-18T18:40:25Z",
           "updatedAt": "2025-11-18T18:40:25Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOKyxaFM63PcZv",
+      "title": "Nits tagged in Med's IESG Review",
+      "url": "https://github.com/CBonnell/lamps-keyusage-crl-validation-clarification/pull/4",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "* Abstract should be self-contained (hence the suggestion to include 5280 title)\r\n* fix so that rendered pointers to specific sections present a link that will direct readers to these sections in html version\r\n* Add some pointers for readers convenience\r\n\r\nand some other minor nits.",
+      "createdAt": "2025-12-05T08:17:29Z",
+      "updatedAt": "2025-12-05T15:31:08Z",
+      "baseRepository": "CBonnell/lamps-keyusage-crl-validation-clarification",
+      "baseRefName": "main",
+      "baseRefOid": "3cd0442d69b2e6728aa1f0b0b401a6c552848a3e",
+      "headRepository": "boucadair/lamps-keyusage-crl-validation-clarification",
+      "headRefName": "patch-1",
+      "headRefOid": "c08ce9e06ac874b08a0d6c5ded7f51e439f4d848",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOKyxaFM7TUH3R",
+          "commit": {
+            "abbreviatedOid": "c08ce9e"
+          },
+          "author": "CBonnell",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-12-05T15:30:56Z",
+          "updatedAt": "2025-12-05T15:30:56Z",
           "comments": []
         }
       ]
