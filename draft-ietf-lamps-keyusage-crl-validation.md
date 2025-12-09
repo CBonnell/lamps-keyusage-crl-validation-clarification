@@ -1,6 +1,6 @@
 ---
-title: "Clarification to processing Key Usage values during CRL validation"
-abbrev: "CRL validation clarification"
+title: "Clarification to Processing Key Usage Values During Certificate Revocation List (CRL) Validation"
+abbrev: "CRL Validation Clarification"
 category: std
 
 docname: draft-ietf-lamps-keyusage-crl-validation-latest
@@ -10,11 +10,11 @@ date:
 consensus: true
 v: 3
 # area: AREA
-# workgroup: WG Working Group
+# workgroup: LAMPS
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+ - Public Key Infrastructure
+ - Certificate validation
+ - Security
 venue:
 #  group: WG
 #  type: Working Group
@@ -49,8 +49,7 @@ informative:
 
 --- abstract
 
-RFC 5280 defines the profile of X.509 certificates and certificate
-revocation lists (CRLs) for use in the Internet. Section 4.2.1.3 of
+RFC 5280 (Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile) defines the profile of X.509 certificates and CRLs for use in the Internet. Section 4.2.1.3 of
 RFC 5280 requires CRL issuer certificates to contain the `keyUsage`
 extension with the `cRLSign` bit asserted. However, the CRL validation
 algorithm specified in Section 6.3 of RFC 5280 does not explicitly
@@ -63,34 +62,34 @@ that check.
 # Introduction
 
 {{!RFC5280}} defines the profile of X.509 certificates and certificate
-revocation lists (CRLs) for use in the Internet. Section 4.2.1.3 of
-{{!RFC5280}} requires CRL issuer certificates to contain the `keyUsage`
+revocation lists (CRLs) for use in the Internet. {{Section 4.2.1.3 of !RFC5280}} requires CRL issuer certificates to contain the `keyUsage`
 extension with the `cRLSign` bit asserted. However, the CRL validation
-algorithm specified in Section 6.3 of {{!RFC5280}} does not explicitly
+algorithm specified in {{Section 6.3 of !RFC5280}} does not explicitly
 include a corresponding check for the presence of the `keyUsage`
 certificate extension. This document updates {{!RFC5280}} to require
 that check.
 
 {{the-issue}} describes the security concern that motivates this update.
 
-{{crl-validation-algo-amendment}} updates the CRL validation algorithm
+{{crl-validation-algo-amendment}} updates the CRL validation algorithm ({{Section 6.3 of !RFC5280}})
 to resolve this concern.
 
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
 
-# The risk of trusting CRLs signed with non-certified keys {#the-issue}
+# The Risk of Trusting CRLs Signed with Non-certified Keys {#the-issue}
 
 In some Public Key Infrastructures, entities are delegated by
-Certification Authorities to sign CRLs. CRLs whose scope encompasses
+Certification Authorities (CAs) to sign CRLs. CRLs whose scope encompasses
 certificates that have not been signed by the CRL issuer are known as
 "indirect CRLs".
 
-Applications which consume CRLs follow the validation algorithm as
-specified in Section 6.3 of {{!RFC5280}}. In particular, Section 6.3.3
+Applications that consume CRLs follow the validation algorithm as
+specified in {{Section 6.3 of !RFC5280}}. In particular, Section 6.3.3 of that RFC
 contains the following step for CRL validation:
 
+{:quote}
 > (f) Obtain and validate the certification path for the issuer of
     the complete CRL.  The trust anchor for the certification
     path MUST be the same as the trust anchor used to validate
@@ -101,16 +100,16 @@ contains the following step for CRL validation:
 This step does not explicitly specify a check for the presence of the
 `keyUsage` extension itself.
 
-Similarly, the certificate profile in {{!RFC5280}} does not require
+Similarly, the certificate profile in {{Section 4 of !RFC5280}} does not require
 the inclusion of the `keyUsage` extension in a certificate if the
 certified public key is not used for verifying the signatures of other
 certificates or CRLs.
 
-Certification Authorities can delegate the issuance of CRLs
+CAs can delegate the issuance of CRLs
 to other entities by issuing to the entity a certificate that asserts
-the `cRLSign` bit in the `keyUsage` extension. The Certification
-Authority will then sign certificates that fall within the scope of the
-indirect CRL by including the `crlDistributionPoints` extension and
+the `cRLSign` bit in the `keyUsage` extension. The CA
+will then sign certificates that fall within the scope of the
+indirect CRL by including the `crlDistributionPoints` extension ({{Section 4.2.1.13 of !RFC5280}}) and
 specifying the distinguished name ("DN") of the CRL issuer in the
 `cRLIssuer` field of the corresponding distribution point.
 
@@ -120,37 +119,37 @@ the `issuingDistributionPoint` extension.
 The allowance for the issuance of certificates without the `keyUsage`
 extension and the lack of a check for the inclusion of the `keyUsage`
 extension during CRL verification can manifest in a security issue. A
-concrete example is described below.
+concrete example is described below:
 
-1. The Certification Authority signs an end-entity CRL issuer
+1. The CA signs an end-entity CRL issuer
    certificate to subject `X` that certifies key `A` for signing CRLs by
    explicitly including the `keyUsage` extension and asserting the
-   `cRLSign` bit in accordance with Section 4.2.1.3 of {{!RFC5280}}.
-2. The Certification Authority signs one or more certificates that
-   include the crlDistributionPoints extension with the DN for subject
+   `cRLSign` bit in accordance with {{Section 4.2.1.3 of !RFC5280}}.
+2. The CA signs one or more certificates that
+   include the `crlDistributionPoints` extension with the DN for subject
    `X` included in the `cRLIssuer` field. This indicates that the
    CRL-based revocation information for these certificates will be
    provided by subject `X`.
-3. The Certification Authority signs an end-entity certificate to
+3. The CA signs an end-entity certificate to
    subject `X` that certifies key `B`. This certificate contains no key
    usage extension, as the certified key is not intended to be used for
-   signing CRLs and could be a “mundane” certificate of any type (e.g.,
+   signing CRLs and could be a "mundane" certificate of any type (e.g.,
    S/MIME, document signing certificate where the corresponding private
    key is stored on the filesystem of the secretary's laptop, etc.).
 4. Subject `X` signs a CRL using key `B` and publishes the CRL at the
-   `distributionPoint` specified in the `crlDistributionPoints`
+   `distributionPoint` field specified in the `crlDistributionPoints`
    extension of the certificates signed in step 2.
 5. Relying parties download the CRL published in step 4. The CRL
-   validates successfully according to Section 6.3.3 of {{!RFC5280}},
+   validates successfully according to {{Section 6.3.3 of !RFC5280}},
    as the CRL issuer DN matches, and the check for the presence of the
    `cRLSign` bit in the `keyUsage` extension is skipped because the
    `keyUsage` extension is absent.
 
-# Checking the presence of the `keyUsage` extension {#crl-validation-algo-amendment}
+# Checking the Presence of the `keyUsage` Extension {#crl-validation-algo-amendment}
 
 To remediate the security issue described in {{the-issue}}, this
 document specifies the following amendment to step (f) of the CRL
-algorithm as found in Section 6.3.3 of {{!RFC5280}}.
+algorithm as specified in {{Section 6.3.3 of !RFC5280}}.
 
 *OLD:*
 
@@ -168,7 +167,7 @@ algorithm as found in Section 6.3.3 of {{!RFC5280}}.
     path MUST be the same as the trust anchor used to validate
     the target certificate.  If the version of the CRL issuer’s
     certificate is version 3 (v3), then verify that the keyUsage
-    extension is present and verify that the cRLSign bit is set.
+    extension is present and verify that the `cRLSign` bit is set.
 
 This change ensures that the CRL issuer's key is certified for
 CRL signing. However, this check is not performed if the CRL
@@ -178,14 +177,14 @@ the key usage extension can be included.
 
 # Security Considerations
 
-If a Certification Authority has signed certificates to be used for
+If a CA has signed certificates to be used for
 CRL verification but do not include the `keyUsage` extension in
-accordance with Section 4.2.1.3 of {{!RFC5280}}, then relying party
+accordance with {{Section 4.2.1.3 of !RFC5280}}, then relying party
 applications that have implemented the modified verification algorithm
 as specified in this document will be unable to verify CRLs signed by
 the CRL issuer in question.
 
-It is strongly RECOMMENDED that Certification Authorities include the
+It is RECOMMENDED that CAs include the
 `keyUsage` extension in certificates to be used for CRL verification to
 ensure that there are no interoperability issues where updated
 applications are unable to verify CRLs.
