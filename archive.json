@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-09T00:54:31.866498+00:00",
+  "timestamp": "2025-12-11T00:56:32.929949+00:00",
   "repo": "CBonnell/lamps-keyusage-crl-validation-clarification",
   "labels": [
     {
@@ -182,24 +182,26 @@
       "id": "PR_kwDOKyxaFM63PcZv",
       "title": "Nits tagged in Med's IESG Review",
       "url": "https://github.com/CBonnell/lamps-keyusage-crl-validation-clarification/pull/4",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "boucadair",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "* Abstract should be self-contained (hence the suggestion to include 5280 title)\r\n* fix so that rendered pointers to specific sections present a link that will direct readers to these sections in html version\r\n* Add some pointers for readers convenience\r\n\r\nand some other minor nits.",
       "createdAt": "2025-12-05T08:17:29Z",
-      "updatedAt": "2025-12-05T15:31:08Z",
+      "updatedAt": "2025-12-09T17:01:37Z",
       "baseRepository": "CBonnell/lamps-keyusage-crl-validation-clarification",
       "baseRefName": "main",
       "baseRefOid": "3cd0442d69b2e6728aa1f0b0b401a6c552848a3e",
       "headRepository": "boucadair/lamps-keyusage-crl-validation-clarification",
       "headRefName": "patch-1",
       "headRefOid": "c08ce9e06ac874b08a0d6c5ded7f51e439f4d848",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-12-09T17:01:37Z",
+      "mergedAt": "2025-12-09T17:01:37Z",
+      "mergedBy": "CBonnell",
+      "mergeCommit": {
+        "oid": "a5e2e3ecdb97f53bcbdd7ab8ef4a2ce1b4c6d28b"
+      },
       "comments": [],
       "reviews": [
         {
