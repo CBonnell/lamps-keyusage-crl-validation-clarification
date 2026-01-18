@@ -33,7 +33,9 @@ author:
     fullname:
       :: 伊藤 忠彦
       ascii: Tadahiko Ito
-    organization: SECOM CO., LTD.
+    organization:
+      :: セコム株式会社
+      ascii: SECOM CO., LTD.
     email: tadahiko.ito.public@gmail.com
  -
     fullname:
